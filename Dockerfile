@@ -60,4 +60,4 @@ RUN mkdir /helpers
 
 COPY wait-for-avd-boot.sh /helpers
 
-RUN (while [ 1 ]; do sleep 5; echo y; done) | ${ANDROID_HOME}/tools/android update sdk -u -a -t ${SDK_PACKAGES}
+RUN (while [ 1 ]; do sleep 5; echo y; done) | ${ANDROID_HOME}/tools/bin/sdkmanager "platforms;android-26"
