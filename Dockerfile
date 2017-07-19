@@ -11,7 +11,7 @@ ENV VERSION_SDK_TOOLS "26.0.0"
 ENV VERSION_BUILD_TOOLS "26.0.0"
 ENV VERSION_TARGET_SDK "26"
 
-ENV SDK_PACKAGES "build-tools-${VERSION_BUILD_TOOLS},android-${VERSION_TARGET_SDK},addon-google_apis-google-${VERSION_TARGET_SDK},platform-tools,extra-android-m2repository,extra-android-support,extra-google-google_play_services,extra-google-m2repository,sys-img-x86-android-${VERSION_TARGET_SDK},sys-img-x86-google_apis-${VERSION_TARGET_SDK}"
+ENV SDK_PACKAGES '"build-tools;${VERSION_BUILD_TOOLS}" "platforms;android-${VERSION_TARGET_SDK}" "add-ons;addon-google_apis-google-${VERSION_TARGET_SDK}" "platform-tools" "extras:extra-android-m2repository" "extras;android;m2repository" "extras;google;google_play_services" "extras:google;m2repository" "system-images;android-${VERSION_TARGET_SDK};google_apis_playstore;x86" "system-images;android-${VERSION_TARGET_SDK};google_apis;x86"'
 
 ENV ANDROID_HOME "/sdk"
 ENV PATH "$PATH:${ANDROID_HOME}/tools"
@@ -60,4 +60,6 @@ RUN mkdir /helpers
 
 COPY wait-for-avd-boot.sh /helpers
 
-RUN (while [ 1 ]; do sleep 5; echo y; done) | ${ANDROID_HOME}/tools/bin/sdkmanager "platforms;android-26"
+# RUN (while [ 1 ]; do sleep 5; echo y; done) | ${ANDROID_HOME}/tools/bin/sdkmanager "platforms;android-26"
+
+RUN (while [ 1 ]; do sleep 5; echo y; done) | ${ANDROID_HOME}/tools/bin/sdkmanager packages ${SDK_PACKAGES}
