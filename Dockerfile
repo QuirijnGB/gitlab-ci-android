@@ -62,4 +62,4 @@ COPY wait-for-avd-boot.sh /helpers
 
 # RUN (while [ 1 ]; do sleep 5; echo y; done) | ${ANDROID_HOME}/tools/bin/sdkmanager "platforms;android-26"
 
-RUN (while [ 1 ]; do sleep 5; echo y; done) | ${ANDROID_HOME}/tools/bin/sdkmanager "build-tools;26.0.0" "platforms;android-26" "add-ons;addon-google_apis-google-24" "platform-tools" "extras;extra-android-m2repository" "extras;android;m2repository" "extras;google;google_play_services" "extras;google;m2repository" "system-images;android-26;google_apis_playstore;x86" "system-images;android-26;google_apis;x86"
+RUN (while [ 1 ]; do sleep 5; echo y; done) | ${ANDROID_HOME}/tools/bin/sdkmanager "build-tools;26.0.0" "platforms;android-26" "add-ons;addon-google_apis-google-24" "platform-tools" "extras;android;m2repository" "extras;google;google_play_services" "extras;google;m2repository" "system-images;android-26;google_apis_playstore;x86" "system-images;android-26;google_apis;x86"
