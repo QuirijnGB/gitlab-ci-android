@@ -5,7 +5,7 @@
 #
 
 FROM ubuntu:16.04
-MAINTAINER Sucipto <chip@pringstudio.com>
+MAINTAINER Quirijn <me@quirijngb.com>
 
 ENV VERSION_SDK_TOOLS "26.0.0"
 ENV VERSION_BUILD_TOOLS "26.0.0"
@@ -63,3 +63,17 @@ COPY wait-for-avd-boot.sh /helpers
 # RUN (while [ 1 ]; do sleep 5; echo y; done) | ${ANDROID_HOME}/tools/bin/sdkmanager "platforms;android-26"
 
 RUN (while [ 1 ]; do sleep 5; echo y; done) | ${ANDROID_HOME}/tools/bin/sdkmanager "build-tools;26.0.0" "platforms;android-26" "add-ons;addon-google_apis-google-24" "platform-tools" "extras;android;m2repository" "extras;google;google_play_services" "extras;google;m2repository" "system-images;android-26;google_apis_playstore;x86" "system-images;android-26;google_apis;x86"
+
+RUN apt-get update
+
+RUN apt-get install -y openssh-server
+RUN mkdir /var/run/sshd
+
+RUN echo 'root:root' |chpasswd
+
+RUN sed -ri 's/^PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
+
+EXPOSE 22
+
+CMD    ["/usr/sbin/sshd", "-D"]
